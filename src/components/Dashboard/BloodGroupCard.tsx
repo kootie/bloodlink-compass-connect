@@ -3,6 +3,8 @@ import React from 'react';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
 import { BloodGroup } from '@/store/authStore';
+import { cn } from '@/lib/utils';
+import { Button } from '@/components/ui/button';
 
 interface BloodGroupCardProps {
   bloodGroup: BloodGroup | undefined;
@@ -56,8 +58,7 @@ const BloodGroupCard: React.FC<BloodGroupCardProps> = ({
               </div>
               <Progress 
                 value={eligibilityPercentage} 
-                className="h-2" 
-                indicatorClassName={eligibleToDonateDays <= 0 ? "bg-green-500" : ""}
+                className={cn("h-2", eligibleToDonateDays <= 0 ? "bg-green-500" : "")}
               />
             </div>
             
@@ -99,8 +100,5 @@ const BloodGroupCard: React.FC<BloodGroupCardProps> = ({
     </Card>
   );
 };
-
-// For TypeScript support
-import { Button } from '@/components/ui/button';
 
 export default BloodGroupCard;
