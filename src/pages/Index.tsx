@@ -3,6 +3,16 @@ import React from 'react';
 import { Button } from '@/components/ui/button';
 import { useNavigate } from 'react-router-dom';
 import { useAuthStore } from '@/store/authStore';
+import { 
+  NavigationMenu,
+  NavigationMenuContent,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+  NavigationMenuTrigger,
+  navigationMenuTriggerStyle
+} from "@/components/ui/navigation-menu";
+import { Search, MessageSquare, CalendarIcon, BookOpen, Home } from 'lucide-react';
 
 const Index = () => {
   const navigate = useNavigate();
@@ -17,6 +27,65 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-white">
+      {/* Navigation Menu */}
+      <header className="bg-white border-b border-gray-200">
+        <div className="container mx-auto px-4 py-4">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-2">
+              <span className="font-bold text-xl text-medical-dark">Esclapian</span>
+            </div>
+            <NavigationMenu>
+              <NavigationMenuList>
+                <NavigationMenuItem>
+                  <NavigationMenuLink 
+                    className={navigationMenuTriggerStyle()} 
+                    onClick={() => navigate('/')}
+                  >
+                    <Home className="mr-2 h-4 w-4" /> Home
+                  </NavigationMenuLink>
+                </NavigationMenuItem>
+                <NavigationMenuItem>
+                  <NavigationMenuLink 
+                    className={navigationMenuTriggerStyle()} 
+                    onClick={() => navigate('/dashboard')}
+                  >
+                    Dashboard
+                  </NavigationMenuLink>
+                </NavigationMenuItem>
+                <NavigationMenuItem>
+                  <NavigationMenuLink 
+                    className={navigationMenuTriggerStyle()} 
+                    onClick={() => navigate('/search')}
+                  >
+                    <Search className="mr-2 h-4 w-4" /> Search
+                  </NavigationMenuLink>
+                </NavigationMenuItem>
+                <NavigationMenuItem>
+                  <NavigationMenuLink 
+                    className={navigationMenuTriggerStyle()} 
+                    onClick={() => navigate('/request')}
+                  >
+                    <MessageSquare className="mr-2 h-4 w-4" /> Request
+                  </NavigationMenuLink>
+                </NavigationMenuItem>
+                <NavigationMenuItem>
+                  <NavigationMenuLink 
+                    className={navigationMenuTriggerStyle()} 
+                    onClick={() => navigate('/info')}
+                  >
+                    <BookOpen className="mr-2 h-4 w-4" /> Info
+                  </NavigationMenuLink>
+                </NavigationMenuItem>
+              </NavigationMenuList>
+            </NavigationMenu>
+            <div className="flex gap-2">
+              <Button variant="outline" onClick={() => navigate('/login')}>Log In</Button>
+              <Button onClick={() => navigate('/signup')}>Sign Up</Button>
+            </div>
+          </div>
+        </div>
+      </header>
+      
       {/* Hero Section */}
       <div className="relative blood-cell-bg">
         <div className="container mx-auto px-4 py-16 md:py-24">
