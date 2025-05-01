@@ -63,7 +63,7 @@ const SearchNetwork = () => {
                   <SelectValue placeholder="Any Blood Type" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="">Any Blood Type</SelectItem>
+                  <SelectItem value="any">Any Blood Type</SelectItem>
                   <SelectItem value="A+">A+</SelectItem>
                   <SelectItem value="A-">A-</SelectItem>
                   <SelectItem value="B+">B+</SelectItem>
