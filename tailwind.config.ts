@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -61,6 +62,21 @@ export default {
 					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
+				},
+				// Esclapian specific colors
+				blood: {
+					DEFAULT: '#E63946',
+					light: '#FF8A9A',
+					dark: '#D90429',
+				},
+				medical: {
+					blue: '#457B9D',
+					dark: '#1D3557',
+					light: '#A8DADC',
+				},
+				neutral: {
+					light: '#F1FAEE',
+					DEFAULT: '#F8F9FA',
 				}
 			},
 			borderRadius: {
@@ -84,11 +100,20 @@ export default {
 					to: {
 						height: '0'
 					}
+				},
+				'pulse-light': {
+					'0%, 100%': {
+						opacity: '1',
+					},
+					'50%': {
+						opacity: '0.7',
+					},
 				}
 			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
-				'accordion-up': 'accordion-up 0.2s ease-out'
+				'accordion-up': 'accordion-up 0.2s ease-out',
+				'pulse-light': 'pulse-light 2s infinite',
 			}
 		}
 	},
