@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
@@ -11,8 +11,15 @@ const DashboardView = () => {
   const { userProfile, logout, isAnonymous } = useAuthStore();
   const navigate = useNavigate();
 
+  useEffect(() => {
+    // Redirect to login if no user profile
+    if (!userProfile) {
+      navigate('/login');
+    }
+  }, [userProfile, navigate]);
+
+  // Return early if userProfile doesn't exist
   if (!userProfile) {
-    navigate('/login');
     return null;
   }
 
