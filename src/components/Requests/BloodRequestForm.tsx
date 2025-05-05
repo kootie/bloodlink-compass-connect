@@ -8,7 +8,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Checkbox } from '@/components/ui/checkbox';
 import { BloodGroup, useAuthStore, UserRole } from '@/store/authStore';
 import { Badge } from '@/components/ui/badge';
-import { Share2, AlertCircle, HospitalSquare } from 'lucide-react';
+import { Share2, AlertCircle, Hospital } from 'lucide-react';
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { useNavigate } from 'react-router-dom';
 
@@ -96,7 +96,7 @@ const BloodRequestForm = () => {
           <CardHeader className="bg-blood/5">
             <div className="flex justify-center mb-4">
               <div className="rounded-full bg-blood/10 p-3">
-                <HospitalSquare className="h-8 w-8 text-blood" />
+                <Hospital className="h-8 w-8 text-blood" />
               </div>
             </div>
             <CardTitle className="text-center text-blood-dark">Medical Professional Access Only</CardTitle>
