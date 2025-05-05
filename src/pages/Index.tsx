@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Button } from '@/components/ui/button';
 import { useNavigate } from 'react-router-dom';
@@ -74,6 +73,14 @@ const Index = () => {
                     onClick={() => navigate('/info')}
                   >
                     <BookOpen className="mr-2 h-4 w-4" /> Info
+                  </NavigationMenuLink>
+                </NavigationMenuItem>
+                <NavigationMenuItem>
+                  <NavigationMenuLink 
+                    className={navigationMenuTriggerStyle()} 
+                    onClick={() => navigate('/events')}
+                  >
+                    <CalendarIcon className="mr-2 h-4 w-4" /> Events
                   </NavigationMenuLink>
                 </NavigationMenuItem>
               </NavigationMenuList>

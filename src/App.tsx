@@ -6,6 +6,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
+import Events from "./pages/Events";
 
 // Authentication components
 import LoginForm from "./components/Authentication/LoginForm";
@@ -33,6 +34,7 @@ const App = () => (
           <Route path="/search" element={<SearchNetwork />} />
           <Route path="/request" element={<BloodRequestForm />} />
           <Route path="/info" element={<HealthInfoCards />} />
+          <Route path="/events" element={<Events />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
