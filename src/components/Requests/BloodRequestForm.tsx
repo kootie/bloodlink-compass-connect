@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -7,9 +6,11 @@ import { Textarea } from '@/components/ui/textarea';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Checkbox } from '@/components/ui/checkbox';
-import { BloodGroup } from '@/store/authStore';
+import { BloodGroup, useAuthStore, UserRole } from '@/store/authStore';
 import { Badge } from '@/components/ui/badge';
-import { Share2 } from 'lucide-react';
+import { Share2, AlertCircle, HospitalSquare } from 'lucide-react';
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog';
+import { useNavigate } from 'react-router-dom';
 
 // Mock data - would come from an API in a real application
 const hospitals = [
@@ -21,6 +22,10 @@ const hospitals = [
 ];
 
 const BloodRequestForm = () => {
+  const { isAuthenticated, userProfile } = useAuthStore();
+  const navigate = useNavigate();
+  const isDoctor = userProfile?.role === 'doctor';
+  
   const [hospital, setHospital] = useState('');
   const [bloodGroup, setBloodGroup] = useState<BloodGroup | ''>('');
   const [urgency, setUrgency] = useState('standard');
@@ -29,9 +34,17 @@ const BloodRequestForm = () => {
   const [consentShare, setConsentShare] = useState(false);
   const [loading, setLoading] = useState(false);
   const [requestSubmitted, setRequestSubmitted] = useState(false);
+  const [showAuthDialog, setShowAuthDialog] = useState(!isAuthenticated || !isDoctor);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    
+    // Check if user is authenticated and is a doctor
+    if (!isAuthenticated || !isDoctor) {
+      setShowAuthDialog(true);
+      return;
+    }
+    
     if (!hospital || !bloodGroup) return;
     
     setLoading(true);
@@ -43,6 +56,11 @@ const BloodRequestForm = () => {
     }, 1500);
   };
   
+  // Handle redirection to login
+  const handleLoginRedirect = () => {
+    navigate('/login');
+  };
+
   // Handle social sharing
   const handleShare = (platform: 'facebook' | 'twitter' | 'whatsapp') => {
     // Build share text
@@ -69,6 +87,67 @@ const BloodRequestForm = () => {
       window.open(shareLink, '_blank');
     }
   };
+  
+  // Authorization dialog
+  if (showAuthDialog) {
+    return (
+      <div className="container py-6 max-w-md">
+        <Card className="border-blood">
+          <CardHeader className="bg-blood/5">
+            <div className="flex justify-center mb-4">
+              <div className="rounded-full bg-blood/10 p-3">
+                <HospitalSquare className="h-8 w-8 text-blood" />
+              </div>
+            </div>
+            <CardTitle className="text-center text-blood-dark">Medical Professional Access Only</CardTitle>
+            <CardDescription className="text-center">
+              Blood requests can only be initiated by verified medical professionals.
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="pt-6">
+            <div className="space-y-4">
+              <div className="flex items-start gap-4 rounded-md border p-4">
+                <AlertCircle className="h-5 w-5 text-blood-dark mt-0.5" />
+                <div>
+                  <h3 className="font-medium">Access Restricted</h3>
+                  <p className="text-sm text-muted-foreground">
+                    To ensure proper blood allocation and prevent misuse, only verified doctors can request blood donations.
+                  </p>
+                </div>
+              </div>
+              
+              <div className="rounded-md bg-muted p-4">
+                <h3 className="font-medium mb-2">Are you a medical professional?</h3>
+                <p className="text-sm text-muted-foreground mb-4">
+                  If you are a doctor or authorized medical professional, please log in to your account with medical credentials to access the blood request form.
+                </p>
+                <Button onClick={handleLoginRedirect} className="w-full">
+                  Login as Medical Professional
+                </Button>
+              </div>
+            </div>
+          </CardContent>
+          <CardFooter className="flex-col gap-4">
+            <div className="relative w-full">
+              <div className="absolute inset-0 flex items-center">
+                <span className="w-full border-t border-muted" />
+              </div>
+              <div className="relative flex justify-center text-xs uppercase">
+                <span className="bg-card px-2 text-muted-foreground">or</span>
+              </div>
+            </div>
+            <Button 
+              variant="outline"
+              className="w-full"
+              onClick={() => navigate('/dashboard')}
+            >
+              Return to Dashboard
+            </Button>
+          </CardFooter>
+        </Card>
+      </div>
+    );
+  }
   
   if (requestSubmitted) {
     return (
